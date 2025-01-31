@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # CryptoClustering
 =======
-Instructions
+nstructions
 Rename the Crypto_Clustering_starter_code.ipynb file as Crypto_Clustering.ipynb.
 
 Load the crypto_market_data.csv into a DataFrame.
@@ -73,4 +73,16 @@ Color the graph points with the labels found using K-means.
 Add the "coin_id" column in the hover_cols parameter to identify the cryptocurrency represented by each data point.
 Answer the following question:
 What is the impact of using fewer features to cluster the data using K-Means?
->>>>>>> 84a8d62 (Final submission)
+
+
+#REFERENCES:
+https://holoviz.org/tutorial/Composing_Plots.html
+https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html
+https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html
+https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
+https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
+https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html
+htttps://matplotlib.org/stable/gallery/lines_bars_and_markers/specialty_legend.html
+https://matplotlib.org/stable/gallery/lines_bars_and_markers/specialty_legend.html
+https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplot_advanced.html
+CHATGPT
