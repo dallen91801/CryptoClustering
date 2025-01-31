@@ -1,79 +1,62 @@
 
 # CryptoClustering
 =======
-INSTRUCTIONS
 
-Rename the Crypto_Clustering_starter_code.ipynb file as Crypto_Clustering.ipynb.
+Overview of the Analysis
 
-Load the crypto_market_data.csv into a DataFrame.
+This analysis aimed to develop a machine learning model to predict loan risk based on financial data. The goal was to determine whether a loan is classified as high-risk (1) or healthy (0) to assist lenders in making informed decisions and minimizing financial losse based on loan status (Target Variable: 0 = Healthy Loan, 1 = High-Risk Loan)
+A key observation in the dataset was the imbalance in loan status values:
 
-Get the summary statistics and plot the data to see what the data looks like before proceeding.
+Healthy Loans (0): 75,036
 
-Prepare the Data
-Use the StandardScaler() module from scikit-learn to normalize the data from the CSV file.
+High-Risk Loans (1): 2,500 
 
-Create a DataFrame with the scaled data and set the "coin_id" index from the original DataFrame as the index for the new DataFrame.
+This imbalance presented a challenge, as the model could be biased toward predicting loans as healthy due to their higher frequency in the dataset. We applied class balancing techniques to address this, including adjusting class weights in the logistic regression model.
 
-The first five rows of the scaled DataFrame should appear as follows:
+The machine learning process included the following steps:
 
-The first five rows of the scaled DataFrame
+Data Preparation – The dataset was loaded, and the target variable (loan status) was separated from the features (X).
 
-Find the Best Value for k Using the Scaled DataFrame
-Use the elbow method to find the best value for k using the following steps:
+Train-Test Split – The data was divided into 80% training and 20% testing to evaluate the model’s performance on unseen data.
 
-Create a list with the number of k values from 1 to 11.
-Create an empty list to store the inertia values.
-Create a for loop to compute the inertia with each possible value of k.
-Create a dictionary with the data to plot the elbow curve.
-Plot a line chart with all the inertia values computed with the different values of k to visually identify the optimal value for k.
-Answer the following question in your notebook: What is the best value for k?
-Cluster Cryptocurrencies with K-means Using the Scaled DataFrame
-Use the following steps to cluster the cryptocurrencies for the best value for k on the scaled DataFrame:
+Model Selection – Logistic Regression was chosen due to its effectiveness in binary classification problems. Alternative models, such as Random Forest and Gradient 
+Boosting, were also considered but were not tested in this analysis.
 
-Initialize the K-means model with the best value for k.
-Fit the K-means model using the scaled DataFrame.
-Predict the clusters to group the cryptocurrencies using the scaled DataFrame.
-Create a copy of the scaled DataFrame and add a new column with the predicted clusters.
-Create a scatter plot using hvPlot as follows:
-Set the x-axis as "price_change_percentage_24h" and the y-axis as "price_change_percentage_7d".
-Color the graph points with the labels found using K-means.
-Add the "coin_id" column in the hover_cols parameter to identify the cryptocurrency represented by each data point.
-Optimize Clusters with Principal Component Analysis
-Using the original scaled DataFrame, perform a PCA and reduce the features to three principal components.
+Class Imbalance Handling – Class weights were adjusted in the logistic regression model to improve recall for high-risk loans.
 
-Retrieve the explained variance to determine how much information can be attributed to each principal component and then answer the following question in your notebook:
+Model Evaluation – The model’s accuracy, precision, and recall scores were analyzed to assess its effectiveness in identifying high-risk loans.
 
-What is the total explained variance of the three principal components?
-Create a new DataFrame with the scaled PCA data and set the "coin_id" index from the original DataFrame as the index for the new DataFrame.
+Results
 
-The first five rows of the scaled PCA DataFrame should appear as follows:
+Machine Learning Model 1: Logistic Regression
+Accuracy: 99% (The model correctly classified 99 out of 100 loans.)
+Confusion Matrix:
+[[14918   83]
+[    9  498]]
 
-The first five rows of the PCA DataFrame
+Precision & Recall Scores:
 
-Find the Best Value for k Using the PCA DataFrame
-Use the elbow method on the scaled PCA DataFrame to find the best value for k using the following steps:
+Healthy Loans (0):
+Precision: 1.00 (The model never falsely classified a loan as risky when it was safe.)
+Recall: 0.99 (99% of all truly safe loans were correctly identified.)
+High-Risk Loans (1):
+Precision: 0.86 (When the model predicted a risky loan, it was correct 86% of the time.)
+Recall: 0.98 (98% of hazardous loans were successfully flagged.)
 
-Create a list with the number of k-values from 1 to 11.
-Create an empty list to store the inertia values.
-Create a for loop to compute the inertia with each possible value of k.
-Create a dictionary with the data to plot the Elbow curve.
-Plot a line chart with all the inertia values computed with the different values of k to visually identify the optimal value for k.
-Answer the following question in your notebook:
-What is the best value for k when using the scaled PCA DataFrame?
-Does it differ from the best k value found using the original scaled DataFrame?
-Cluster Cryptocurrencies with K-means Using the PCA DataFrame
-Use the following steps to cluster the cryptocurrencies for the best value for k on the PCA DataFrame:
 
-Initialize the K-means model with the best value for k.
-Fit the K-means model using the scaled PCA DataFrame.
-Predict the clusters to group the cryptocurrencies using the scaled PCA DataFrame.
-Create a copy of the scaled PCA DataFrame and add a new column to store the predicted clusters.
-Create a scatter plot using hvPlot as follows:
-Set the x-axis as "PC1" and the y-axis as "PC2".
-Color the graph points with the labels found using K-means.
-Add the "coin_id" column in the hover_cols parameter to identify the cryptocurrency represented by each data point.
-Answer the following question:
-What is the impact of using fewer features to cluster the data using K-Means?
+Summary
+Which one seems to perform best? How do you know it performs best?
+
+The Logistic Regression model was the best-performing model, achieving 99% accuracy and a 98% recall for high-risk loans. This means it correctly identified nearly all risky borrowers, which is essential for lenders to avoid financial losses. Additionally, the model used class weighting to balance the dataset, which helped improve its ability to detect high-risk loans.
+
+Does performance depend on the problem we are trying to solve?
+
+Yes, performance depends on what we are trying to achieve. In loan risk prediction, identifying high-risk loans (1’s) is more important than identifying safe ones. Lenders need to catch risky borrowers to avoid financial losses. However, this comes with a trade-off—while recall is high (98%), precision is lower (86%), meaning some safe borrowers might be mistakenly labeled risky.
+
+Please justify your reasoning if you do not recommend any of the models.
+
+I recommend using Logistic Regression with class weight adjustments because it balances accuracy and recall, making it a reliable tool for lenders. However, to make the model even better, we could test other models like Random Forest or Gradient Boosting, which might improve precision while still maintaining a high recall. These models could help reduce false positives, ensuring that good borrowers are not mistakenly flagged as high-risk while still catching actual risky loans.
+
 
 
 #REFERENCES:
